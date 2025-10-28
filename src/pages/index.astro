@@ -1,0 +1,418 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const books = [
+  {
+    title: 'おうちKubernetes超入門',
+    description: 'おうちでKubernetesを始めるための超入門書。基礎から丁寧に解説します。',
+    boothUrl: 'https://homecloud-lab.booth.pm/',
+    tags: ['Kubernetes', '入門', 'おうちクラウド']
+  },
+  {
+    title: 'おうちKubernetes活用術',
+    description: 'Kubernetesをおうちで活用するための実践的なテクニックを紹介。',
+    boothUrl: 'https://homecloud-lab.booth.pm/',
+    tags: ['Kubernetes', '実践', '運用']
+  }
+];
+
+const booksStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": books.map((book, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Book",
+      "name": book.title,
+      "description": book.description,
+      "author": {
+        "@type": "Organization",
+        "name": "おうちクラウド研究部"
+      },
+      "url": book.boothUrl
+    }
+  }))
+};
+---
+
+<Layout title="おうちクラウド研究部">
+  <main>
+    <header class="header">
+      <div class="container">
+        <img src="/logo.png" alt="おうちクラウド研究部 ロゴ" class="logo" />
+        <h1 class="title">おうちクラウド研究部</h1>
+        <p class="subtitle">Homecloud Lab</p>
+        <p class="description">
+          おうちで楽しむKubernetesと技術探求の同人サークル
+        </p>
+      </div>
+    </header>
+
+    <section class="about">
+      <div class="container">
+        <h2>About</h2>
+        <p>
+          おうちクラウド研究部は、自宅でKubernetesやクラウド技術を楽しむための技術同人サークルです。
+          主に同人誌の執筆を行っており、初心者から中級者向けの実践的な技術書をお届けしています。
+        </p>
+      </div>
+    </section>
+
+    <section class="activities">
+      <div class="container">
+        <h2>活動歴</h2>
+        <div class="activity-list">
+          <div class="activity-item">
+            <span class="activity-year">2024</span>
+            <span class="activity-event">技術書典18</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-year">2024</span>
+            <span class="activity-event">技術書典17</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-year">2024</span>
+            <span class="activity-event">技書博12</span>
+          </div>
+          <div class="activity-item">
+            <span class="activity-year">2023</span>
+            <span class="activity-event">技書博11</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="books">
+      <div class="container">
+        <h2>出版物</h2>
+        <div class="book-grid">
+          {books.map((book) => (
+            <article class="book-card">
+              <div class="book-content">
+                <h3 class="book-title">{book.title}</h3>
+                <p class="book-description">{book.description}</p>
+                <div class="book-tags">
+                  {book.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+                <a href={book.boothUrl} target="_blank" rel="noopener noreferrer" class="book-link">
+                  BOOTHで見る →
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="links">
+      <div class="container">
+        <h2>Links</h2>
+        <div class="link-grid">
+          <a href="https://techbookfest.org/organization/7ZKV9gyQ1aSZn92Jb8XA5K" target="_blank" rel="noopener noreferrer" class="link-card">
+            <h3>技術書典</h3>
+            <p>技術書典での販売ページ</p>
+          </a>
+          <a href="https://homecloud-lab.booth.pm/" target="_blank" rel="noopener noreferrer" class="link-card">
+            <h3>BOOTH</h3>
+            <p>BOOTHでの販売ページ</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="contact-content">
+          <p>ご質問やお問い合わせはこちらまで</p>
+          <a href="mailto:admin@k1h.dev" class="contact-email">admin@k1h.dev</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 おうちクラウド研究部 All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Books Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(booksStructuredData)} />
+  </main>
+</Layout>
+
+<style>
+  main {
+    width: 100%;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 50%, #34d399 100%);
+    color: #1f2937;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 1.125rem;
+    opacity: 0.95;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  section {
+    padding: 4rem 0;
+  }
+
+  section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .about {
+    background: var(--color-bg-light);
+  }
+
+  .about p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+  }
+
+  .activities {
+    padding: 4rem 0;
+  }
+
+  .activity-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .activity-item {
+    display: flex;
+    align-items: center;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .activity-item:hover {
+    transform: translateX(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .activity-year {
+    font-weight: 600;
+    color: var(--color-primary);
+    min-width: 60px;
+    margin-right: 1.5rem;
+  }
+
+  .activity-event {
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .book-card {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .book-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .book-description {
+    color: var(--color-text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .book-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    background: var(--color-bg-light);
+    color: var(--color-primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .book-link {
+    display: inline-block;
+    background: var(--color-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .book-link:hover {
+    background: var(--color-secondary);
+    opacity: 1;
+  }
+
+  .links {
+    background: var(--color-bg-light);
+  }
+
+  .link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .link-card {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .link-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .link-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+  }
+
+  .link-card p {
+    color: var(--color-text-light);
+  }
+
+  .contact {
+    padding: 4rem 0;
+  }
+
+  .contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-content p {
+    font-size: 1.125rem;
+    color: var(--color-text-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-email {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    padding: 0.75rem 2rem;
+    border: 2px solid var(--color-primary);
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .contact-email:hover {
+    background: var(--color-primary);
+    color: white;
+    opacity: 1;
+  }
+
+  .footer {
+    background: var(--color-text);
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  .footer p {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .title {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+
+    .description {
+      font-size: 1rem;
+    }
+
+    section {
+      padding: 3rem 0;
+    }
+
+    section h2 {
+      font-size: 1.75rem;
+    }
+
+    .book-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
