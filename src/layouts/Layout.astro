@@ -51,7 +51,7 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     <title>{fullTitle}</title>
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "おうちクラウド研究部",
