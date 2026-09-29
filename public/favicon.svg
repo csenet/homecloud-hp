@@ -1,10 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <rect width="100" height="100" rx="20" fill="url(#grad)"/>
-  <text x="50" y="70" font-size="60" font-weight="bold" fill="white" text-anchor="middle" font-family="sans-serif">H</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>おうちクラウド研究部</title>
+  <rect width="64" height="64" rx="16" fill="#c3efcc"/>
+  <path d="M14 54a9 9 0 0 1-2-18 14 14 0 0 1 27-5 11 11 0 0 1 13 7 8 8 0 0 1-1 16Z" fill="#9fd3f1"/>
+  <path d="M13 27 28 13l15 14v23H13Z" fill="#ffda64"/>
+  <path d="M37 12h7v15h-7Z" fill="#f56d55"/>
+  <path d="m10 29 18-17 18 17" fill="none" stroke="#f56d55" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 50V37a6 6 0 0 1 12 0v13Z" fill="#173f59"/>
+  <rect x="37" y="34" width="20" height="9" rx="2" fill="#173f59"/>
+  <rect x="37" y="46" width="20" height="9" rx="2" fill="#173f59"/>
+  <path d="M41 38.5h3m-3 12h3" stroke="#c3efcc" stroke-width="3"/>
 </svg>

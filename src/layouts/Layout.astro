@@ -4,16 +4,26 @@ interface Props {
   description?: string;
   ogImage?: string;
   ogType?: string;
+  ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  mainEntityId?: string;
 }
 
 const {
   title,
   description = 'おうちクラウド研究部 - 自宅サーバーやKubernetes、クラウド技術の実践をテーマにした技術同人誌を執筆しています',
   ogImage = '/logo.png',
-  ogType = 'website'
+  ogType = 'website',
+  ogImageAlt = 'おうちクラウド研究部のロゴ',
+  ogImageWidth = 1497,
+  ogImageHeight = 1500,
+  mainEntityId
 } = Astro.props;
 
-const siteUrl = 'https://homecloud-lab.com';
+const siteUrl = Astro.site!;
+const organizationId = new URL('/#organization', siteUrl).href;
+const websiteId = new URL('/#website', siteUrl).href;
 const fullTitle = title === 'おうちクラウド研究部' ? title : `${title} | おうちクラウド研究部`;
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 ---
@@ -24,7 +34,10 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <meta name="theme-color" content="#173f59" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph / Facebook -->
@@ -33,37 +46,64 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, siteUrl)} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:width" content={String(ogImageWidth)} />
+    <meta property="og:image:height" content={String(ogImageHeight)} />
     <meta property="og:site_name" content="おうちクラウド研究部" />
     <meta property="og:locale" content="ja_JP" />
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, siteUrl)} />
 
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
     <!-- Additional SEO -->
-    <meta name="keywords" content="Kubernetes,おうちクラウド,同人誌,技術書,おうちKubernetes,自宅サーバー,クラウド,インフラ" />
     <meta name="author" content="おうちクラウド研究部" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <title>{fullTitle}</title>
 
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "おうちクラウド研究部",
-      "alternateName": "Homecloud Lab",
-      "url": siteUrl,
-      "logo": new URL('/logo.png', siteUrl),
-      "description": description,
-      "sameAs": [
-        "https://homecloud-lab.booth.pm/",
-        "https://techbookfest.org/organization/7ZKV9gyQ1aSZn92Jb8XA5K"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": organizationId,
+          "name": "おうちクラウド研究部",
+          "alternateName": "Homecloud Lab",
+          "url": siteUrl.href,
+          "logo": new URL('/logo.png', siteUrl).href,
+          "description": "自宅サーバーやクラウド技術の実践をテーマに、技術同人誌を執筆・頒布するサークルです。",
+          "sameAs": [
+            "https://homecloud-lab.booth.pm/",
+            "https://techbookfest.org/organization/7ZKV9gyQ1aSZn92Jb8XA5K"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": websiteId,
+          "url": siteUrl.href,
+          "name": "おうちクラウド研究部",
+          "alternateName": "Homecloud Lab",
+          "inLanguage": "ja",
+          "publisher": { "@id": organizationId }
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${canonicalURL.href}#webpage`,
+          "url": canonicalURL.href,
+          "name": fullTitle,
+          "description": description,
+          "inLanguage": "ja",
+          "isPartOf": { "@id": websiteId },
+          ...(mainEntityId ? { "mainEntity": { "@id": new URL(mainEntityId, siteUrl).href } } : {})
+        }
       ]
-    })} />
+    }).replace(/</g, '\\u003c')} />
   </head>
   <body>
     <slot />

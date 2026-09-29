@@ -5,5 +5,6 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://homecloud-lab.com',
   output: 'static',
+  trailingSlash: 'always',
   integrations: [sitemap()],
 });

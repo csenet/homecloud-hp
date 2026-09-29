@@ -3,60 +3,28 @@ import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { Image } from 'astro:assets';
-import proxmoxCover from '../assets/books/proxmox-kubernetes.png';
-import practiceCover from '../assets/books/kubernetes-practice.png';
-import swarmCover from '../assets/books/docker-swarm.png';
-import checkoutCover from '../assets/books/serverless-checkout.png';
-
-const books = [
-  {
-    title: 'Proxmoxで始めるおうちKubernetes超入門',
-    cover: proxmoxCover,
-    description: 'おうちでKubernetesを始めるための超入門書。基礎から丁寧に解説します。',
-    shopUrl: 'https://techbookfest.org/product/dRrkud2mGwsmUJs9JJp1g1',
-    boothUrl: 'https://homecloud-lab.booth.pm/items/6531584',
-    tags: ['Kubernetes', '入門', 'おうちクラウド']
-  },
-  {
-    title: '実践！おうちKubernetes活用術',
-    cover: practiceCover,
-    description: 'Kubernetesをおうちで活用するための実践的なテクニックを紹介します。',
-    shopUrl: 'https://techbookfest.org/product/pwKksfKHgCd77VFRssPgK0',
-    boothUrl: 'https://homecloud-lab.booth.pm/items/7050197',
-    tags: ['Kubernetes', '実践', '運用']
-  },
-  {
-    title: 'Docker Swarmで始めるお手軽コンテナ運用',
-    cover: swarmCover,
-    description: 'Docker Swarmのクラスター構築からサービス公開、ストレージ、GitOpsまでを紹介します。',
-    shopUrl: 'https://techbookfest.org/product/tCWHr7CQQFWm7ZjTEXZrxH',
-    tags: ['Docker Swarm', 'コンテナ', '運用']
-  },
-  {
-    title: 'Cloudflareで作るサーバーレスセルフレジ開発記',
-    cover: checkoutCover,
-    description: '機材の調達から、Cloudflare Workers・D1・Square APIを使ったセルフレジの実装まで。イベントでの運用経験を交えて紹介します。',
-    shopUrl: 'https://techbookfest.org/product/7X97gwedWvAgcLnjXtfiz',
-    tags: ['Cloudflare', 'サーバーレス', 'セルフレジ']
-  }
-];
+import { books } from '../data/books';
 
 const booksStructuredData = {
   "@context": "https://schema.org",
   "@type": "ItemList",
+  "@id": new URL('/#publications', Astro.site).href,
+  "name": "おうちクラウド研究部の出版物",
   "itemListElement": books.map((book, index) => ({
     "@type": "ListItem",
     "position": index + 1,
     "item": {
       "@type": "Book",
+      "@id": new URL(`/books/${book.slug}/#book`, Astro.site).href,
+      "inLanguage": "ja",
       "name": book.title,
       "description": book.description,
       "image": new URL(book.cover.src, Astro.site).href,
       "author": {
-        "@type": "Organization",
-        "name": "おうちクラウド研究部"
+        "@type": "Person",
+        "name": "VOID"
       },
-      "url": book.shopUrl
+      "url": new URL(`/books/${book.slug}/`, Astro.site).href
     }
   }))
 };
@@ -72,7 +40,7 @@ const activities = [
 ];
 ---
 
-<Layout title="おうちクラウド研究部">
+<Layout title="自宅サーバー・Kubernetesの技術同人誌" mainEntityId="/#publications">
   <SiteHeader />
   <main id="main">
     <section class="hero container" aria-labelledby="hero-title">
@@ -95,16 +63,17 @@ const activities = [
         <div class="book-grid">
           {books.map((book) => (
             <article class="book">
-              <a href={book.shopUrl} target="_blank" rel="noopener noreferrer" class="book-cover-link" aria-label={`${book.title}を技術書典で見る（別タブ）`}>
+              <a href={`/books/${book.slug}/`} class="book-cover-link" aria-label={`${book.title}の内容を見る`}>
                 <span class="book-cover-frame">
                 <Image src={book.cover} alt={`${book.title}の表紙`} widths={[320, 640, 960]} sizes="(max-width: 600px) 260px, (max-width: 900px) 280px, 220px" width={640} format="webp" loading="eager" class="book-cover" />
                 </span>
               </a>
               <div class="book-content">
                 <p class="book-topics">{book.tags.join(' / ')}</p>
-                <h3>{book.title}</h3>
+                <h3><a href={`/books/${book.slug}/`}>{book.title}</a></h3>
                 <p class="book-description">{book.description}</p>
                 <div class="book-links">
+                  <a class="book-detail-link" href={`/books/${book.slug}/`} aria-label={`内容を見る：${book.title}`}>内容を見る</a>
                   <a class="book-link" aria-label={`技術書典で見る：${book.title}（別タブ）`} href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>
                   {book.boothUrl && (
                     <a class="book-link" aria-label={`BOOTHで見る：${book.title}（別タブ）`} href={book.boothUrl} target="_blank" rel="noopener noreferrer">BOOTHで見る <span aria-hidden="true">↗</span></a>
@@ -185,6 +154,7 @@ const activities = [
   .book-topics { font-size: .72rem; color: var(--muted); margin-bottom: 10px; }
   .book h3 { font-size: 1.24rem; line-height: 1.65; letter-spacing: -.02em; margin-bottom: 12px; }
   .book-description { font-size: .875rem; line-height: 1.9; color: var(--muted); margin-bottom: 22px; }
+  .book-detail-link { font-size: .85rem; text-decoration: underline; text-underline-offset: 4px; margin-bottom: 4px; }
   .book-links { display: grid; gap: 10px; width: 100%; margin-top: auto; }
   .book-link { display: flex; justify-content: space-between; gap: 32px; width: 100%; padding: 12px 16px; border: 1px solid #afc7d7; border-radius: 6px; font-size: .85rem; font-weight: 600; background: #ffffff80; }
   .book-link:hover { background: var(--ink); color: white; border-color: var(--ink); }

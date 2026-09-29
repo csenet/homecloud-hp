@@ -46,14 +46,22 @@ pnpm preview
 
 以下のSEO対策を実装しています：
 
-- メタタグ（description, keywords, author等）
+- ページごとに固有のタイトル・description・canonical URL
 - Open Graph Protocol (OGP) タグ
 - Twitter Card タグ
 - 構造化データ（JSON-LD）
-  - Organization（組織情報）
-  - ItemList（書籍一覧）
+  - Organization / WebSite / WebPage（サークル・サイト・ページ情報）
+  - ItemList（書籍一覧）、Book（書籍情報）、BreadcrumbList（パンくず）
+- `/books/` 配下の書籍別紹介ページと関連書籍へのリンク
 - Sitemap.xml
 - Robots.txt
+
+書籍情報は `src/data/books.ts` で管理します。書籍ページは静的生成され、サイトマップにも自動で追加されます。
+公開URLは `astro.config.mjs` の `site` で指定します。ドメイン変更時は `public/robots.txt` のサイトマップURLも更新してください。
+
+faviconは `public/favicon.svg` が原本です。変更後に `npm run icons` を実行すると、ICO（16/32/48px）とApple Touch Iconを再生成できます。
+
+公開後はGoogle Search Consoleでサイトマップを送信し、URL検査でクロール状況を確認してください。構造化データの追加自体は検索順位やリッチリザルト表示を保証するものではありません。
 
 ## プロジェクト構造
 
