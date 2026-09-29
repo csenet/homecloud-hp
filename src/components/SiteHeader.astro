@@ -1,0 +1,26 @@
+<a class="skip-link" href="#main">本文へスキップ</a>
+<header class="site-header container">
+  <a class="brand" href="/" aria-label="おうちクラウド研究部 ホーム">
+    <img src="/logo.png" alt="" width="42" height="42" />
+    <span>おうちクラウド研究部<small>Homecloud Lab</small></span>
+  </a>
+  <nav aria-label="メインナビゲーション">
+    <a href="/#books">出版物</a>
+    <a href="/#activities">活動歴</a>
+    <a href="/#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<style>
+  .site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 700; }
+  .brand img { border-radius: 50%; }
+  .brand small { display: block; font-size: .7rem; font-weight: 500; color: var(--muted); margin-top: 2px; }
+  nav { display: flex; gap: 30px; font-size: .85rem; font-weight: 600; }
+  .skip-link { position: absolute; left: 16px; top: -100px; background: white; padding: 12px 20px; z-index: 10; }
+  .skip-link:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .site-header { align-items: flex-start; flex-direction: column; gap: 22px; padding-block: 20px; }
+    nav { width: 100%; justify-content: space-between; gap: 16px; font-size: .8rem; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<Layout title="特定商取引法に基づく表記" description="おうちクラウド研究部の販売事業者情報と開示請求先、販売サイトのご案内です。">
+  <SiteHeader />
+  <main id="main" class="container legal">
+    <a class="text-link" href="/">ホームに戻る</a>
+    <h1>特定商取引法に基づく表記</h1>
+    <section>
+      <h2>販売事業者の氏名（名称）・住所・電話番号</h2>
+      <p>販売事業者の氏名（名称）・住所・電話番号は、請求により遅滞なく電子メールで開示いたします。</p>
+      <p>開示請求先：<a href="mailto:admin@k1h.dev">admin@k1h.dev</a></p>
+    </section>
+    <section>
+      <h2>商品の購入・販売条件</h2>
+      <p>書籍は技術書典およびBOOTHでご案内しています。販売価格、送料などの追加料金、支払方法・時期、引渡時期、返品・キャンセル条件は、購入先の商品ページおよび特定商取引法に基づく表記をご確認ください。</p>
+      <ul>
+        <li><a href="https://techbookfest.org/organization/7ZKV9gyQ1aSZn92Jb8XA5K" target="_blank" rel="noopener noreferrer">技術書典のサークルページ</a></li>
+        <li><a href="https://techbookfest.org/law.html" target="_blank" rel="noopener noreferrer">技術書典の特定商取引法に基づく表記</a></li>
+        <li><a href="https://homecloud-lab.booth.pm/" target="_blank" rel="noopener noreferrer">BOOTHのショップページ</a></li>
+      </ul>
+    </section>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  .legal { max-width: 880px; padding-block: 48px 96px; min-height: 70vh; }
+  h1 { font-size: clamp(1.7rem, 4vw, 2.5rem); margin: 32px 0 48px; line-height: 1.5; }
+  section + section { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+  h2 { font-size: 1.15rem; line-height: 1.7; margin-bottom: 18px; }
+  p { line-height: 2; margin-bottom: 12px; }
+  section a { text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+  ul { padding-left: 1.4rem; margin-top: 20px; }
+  li { margin-block: 10px; }
+</style>
