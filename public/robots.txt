@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://homecloud-lab.com/sitemap-index.xml
+Sitemap: https://homecloud.k1h.dev/sitemap-index.xml
