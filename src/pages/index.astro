@@ -6,6 +6,7 @@ import { Image } from 'astro:assets';
 import proxmoxCover from '../assets/books/proxmox-kubernetes.png';
 import practiceCover from '../assets/books/kubernetes-practice.png';
 import swarmCover from '../assets/books/docker-swarm.png';
+import checkoutCover from '../assets/books/serverless-checkout.png';
 
 const books = [
   {
@@ -13,6 +14,7 @@ const books = [
     cover: proxmoxCover,
     description: 'おうちでKubernetesを始めるための超入門書。基礎から丁寧に解説します。',
     shopUrl: 'https://techbookfest.org/product/dRrkud2mGwsmUJs9JJp1g1',
+    boothUrl: 'https://homecloud-lab.booth.pm/items/6531584',
     tags: ['Kubernetes', '入門', 'おうちクラウド']
   },
   {
@@ -20,6 +22,7 @@ const books = [
     cover: practiceCover,
     description: 'Kubernetesをおうちで活用するための実践的なテクニックを紹介。',
     shopUrl: 'https://techbookfest.org/product/pwKksfKHgCd77VFRssPgK0',
+    boothUrl: 'https://homecloud-lab.booth.pm/items/7050197',
     tags: ['Kubernetes', '実践', '運用']
   },
   {
@@ -28,6 +31,13 @@ const books = [
     description: 'Docker Swarmのクラスター構築からサービス公開、ストレージ、GitOpsまでを紹介します。',
     shopUrl: 'https://techbookfest.org/product/tCWHr7CQQFWm7ZjTEXZrxH',
     tags: ['Docker Swarm', 'コンテナ', '運用']
+  },
+  {
+    title: 'Cloudflareで作るサーバーレスセルフレジ開発記',
+    cover: checkoutCover,
+    description: '機材の調達から、Cloudflare Workers・D1・Square APIを使ったセルフレジの実装まで。イベントでの運用経験を交えて紹介します。',
+    shopUrl: 'https://techbookfest.org/product/7X97gwedWvAgcLnjXtfiz',
+    tags: ['Cloudflare', 'サーバーレス', 'セルフレジ']
   }
 ];
 
@@ -86,13 +96,18 @@ const activities = [
           {books.map((book) => (
             <article class="book">
               <a href={book.shopUrl} target="_blank" rel="noopener noreferrer" class="book-cover-link" aria-label={`${book.title}を技術書典で見る（別タブ）`}>
-                <Image src={book.cover} alt={`${book.title}の表紙`} widths={[320, 640, 960]} sizes="(max-width: 600px) 260px, (max-width: 900px) 28vw, 280px" width={640} format="webp" loading="eager" class="book-cover" />
+                <Image src={book.cover} alt={`${book.title}の表紙`} widths={[320, 640, 960]} sizes="(max-width: 600px) 260px, (max-width: 900px) 280px, 220px" width={640} format="webp" loading="eager" class="book-cover" />
               </a>
               <div class="book-content">
                 <p class="book-topics">{book.tags.join(' / ')}</p>
                 <h3>{book.title}</h3>
                 <p class="book-description">{book.description}</p>
-                <a class="book-link" href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>
+                <div class="book-links">
+                  <a class="book-link" href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>
+                  {book.boothUrl && (
+                    <a class="book-link" href={book.boothUrl} target="_blank" rel="noopener noreferrer">BOOTHで見る <span aria-hidden="true">↗</span></a>
+                  )}
+                </div>
               </div>
             </article>
           ))}
@@ -158,16 +173,17 @@ const activities = [
   .section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: 38px; }
   h2 { font-size: 1.65rem; letter-spacing: -.025em; }
   .section-heading p { font-size: .9rem; color: var(--muted); }
-  .book-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px; }
+  .book-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
   .book { min-width: 0; display: flex; flex-direction: column; }
-  .book-cover-link { display: flex; justify-content: center; align-items: end; padding: 0 18px 24px; border-bottom: 5px solid #c6d7e1; }
-  .book-cover { width: 100%; max-width: 280px; height: auto; box-shadow: 4px 6px 0 #153d5812, 8px 12px 20px #153d5818; transition: transform .2s ease; }
+  .book-cover-link { height: 341px; flex-shrink: 0; display: flex; justify-content: center; align-items: end; padding: 0 18px 24px; border-bottom: 5px solid #c6d7e1; }
+  .book-cover { width: 100%; max-width: 280px; height: auto; max-height: 312px; object-fit: contain; box-shadow: 4px 6px 0 #153d5812, 8px 12px 20px #153d5818; transition: transform .2s ease; }
   .book-cover-link:hover .book-cover { transform: translateY(-6px); }
   .book-content { padding-top: 24px; display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
   .book-topics { font-size: .72rem; color: var(--muted); margin-bottom: 10px; }
   .book h3 { font-size: 1.24rem; line-height: 1.65; letter-spacing: -.02em; margin-bottom: 12px; }
   .book-description { font-size: .875rem; line-height: 1.9; color: var(--muted); margin-bottom: 22px; }
-  .book-link { display: flex; justify-content: space-between; gap: 32px; width: 100%; margin-top: auto; padding: 12px 16px; border: 1px solid #afc7d7; border-radius: 6px; font-size: .85rem; font-weight: 600; background: #ffffff80; }
+  .book-links { display: grid; gap: 10px; width: 100%; margin-top: auto; }
+  .book-link { display: flex; justify-content: space-between; gap: 32px; width: 100%; padding: 12px 16px; border: 1px solid #afc7d7; border-radius: 6px; font-size: .85rem; font-weight: 600; background: #ffffff80; }
   .book-link:hover { background: var(--ink); color: white; border-color: var(--ink); }
   .shop-note { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-top: 34px; margin-top: 34px; border-top: 1px solid #d0dee7; font-size: .8rem; color: var(--muted); }
   .shop-note > div { display: flex; gap: 28px; }
@@ -195,8 +211,9 @@ const activities = [
     .hero { gap: 30px; grid-template-columns: 1fr; padding-block: 48px; }
     .hero-about { max-width: 560px; }
     .desktop-break { display: none; }
-    .book-grid { gap: 24px; }
-    .book-cover-link { padding-inline: 6px; }
+    .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; }
+    .book-cover { max-height: 398px; }
+    .book-cover-link { height: 427px; padding-inline: 6px; }
     .book h3 { font-size: 1.05rem; }
     .about, .activities { gap: 32px; }
     .about-heading { flex-direction: column; align-items: flex-start; }
@@ -211,8 +228,8 @@ const activities = [
     .section-heading p { margin-top: 10px; }
     .book-grid { grid-template-columns: 1fr; gap: 42px; }
     .book { max-width: 380px; margin-inline: auto; width: 100%; }
-    .book-cover { max-width: 260px; }
-    .book-cover-link { padding-bottom: 22px; }
+    .book-cover { max-width: 260px; max-height: 369px; }
+    .book-cover-link { height: 398px; padding-bottom: 22px; }
     .book-content { padding-top: 20px; }
     .book h3 { font-size: 1.2rem; }
     .shop-note { align-items: flex-start; }
