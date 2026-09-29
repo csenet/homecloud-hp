@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title,
-  description = 'おうちクラウド研究部 - おうちKubernetesの同人誌を執筆しています',
+  description = 'おうちクラウド研究部 - 自宅サーバーやKubernetes、クラウド技術の実践をテーマにした技術同人誌を執筆しています',
   ogImage = '/logo.png',
   ogType = 'website'
 } = Astro.props;
@@ -60,7 +60,8 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
       "logo": new URL('/logo.png', siteUrl),
       "description": description,
       "sameAs": [
-        "https://homecloud-lab.booth.pm/"
+        "https://homecloud-lab.booth.pm/",
+        "https://techbookfest.org/organization/7ZKV9gyQ1aSZn92Jb8XA5K"
       ]
     })} />
   </head>

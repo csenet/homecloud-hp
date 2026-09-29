@@ -20,7 +20,7 @@ const books = [
   {
     title: '実践！おうちKubernetes活用術',
     cover: practiceCover,
-    description: 'Kubernetesをおうちで活用するための実践的なテクニックを紹介。',
+    description: 'Kubernetesをおうちで活用するための実践的なテクニックを紹介します。',
     shopUrl: 'https://techbookfest.org/product/pwKksfKHgCd77VFRssPgK0',
     boothUrl: 'https://homecloud-lab.booth.pm/items/7050197',
     tags: ['Kubernetes', '実践', '運用']
@@ -63,12 +63,12 @@ const booksStructuredData = {
 
 const activities = [
   { year: '2026', name: '技書博14', url: 'https://gishohaku.dev/gishohaku14/circles/NZaUq1xydiFlcyI9rym9' },
-  { year: '2026', name: '技術書典20', url: 'https://techbookfest.org/product/7X97gwedWvAgcLnjXtfiz' },
-  { year: '2025', name: '技術書典19', url: 'https://techbookfest.org/product/tCWHr7CQQFWm7ZjTEXZrxH' },
+  { year: '2026', name: '技術書典20', url: 'https://techbookfest.org/event/tbf20' },
+  { year: '2025', name: '技術書典19', url: 'https://techbookfest.org/event/tbf19' },
   { year: '2025', name: '技書博12', url: 'https://gishohaku.dev/gishohaku12/circles' },
-  { year: '2025', name: '技術書典18', url: 'https://techbookfest.org/product/pwKksfKHgCd77VFRssPgK0' },
+  { year: '2025', name: '技術書典18', url: 'https://techbookfest.org/event/tbf18' },
   { year: '2025', name: '技書博11', url: 'https://gishohaku.dev/gishohaku11' },
-  { year: '2024', name: '技術書典17', url: 'https://techbookfest.org/product/dRrkud2mGwsmUJs9JJp1g1' },
+  { year: '2024', name: '技術書典17', url: 'https://techbookfest.org/event/tbf17' },
 ];
 ---
 
@@ -96,16 +96,18 @@ const activities = [
           {books.map((book) => (
             <article class="book">
               <a href={book.shopUrl} target="_blank" rel="noopener noreferrer" class="book-cover-link" aria-label={`${book.title}を技術書典で見る（別タブ）`}>
+                <span class="book-cover-frame">
                 <Image src={book.cover} alt={`${book.title}の表紙`} widths={[320, 640, 960]} sizes="(max-width: 600px) 260px, (max-width: 900px) 280px, 220px" width={640} format="webp" loading="eager" class="book-cover" />
+                </span>
               </a>
               <div class="book-content">
                 <p class="book-topics">{book.tags.join(' / ')}</p>
                 <h3>{book.title}</h3>
                 <p class="book-description">{book.description}</p>
                 <div class="book-links">
-                  <a class="book-link" href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>
+                  <a class="book-link" aria-label={`技術書典で見る：${book.title}（別タブ）`} href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>
                   {book.boothUrl && (
-                    <a class="book-link" href={book.boothUrl} target="_blank" rel="noopener noreferrer">BOOTHで見る <span aria-hidden="true">↗</span></a>
+                    <a class="book-link" aria-label={`BOOTHで見る：${book.title}（別タブ）`} href={book.boothUrl} target="_blank" rel="noopener noreferrer">BOOTHで見る <span aria-hidden="true">↗</span></a>
                   )}
                 </div>
               </div>
@@ -113,7 +115,7 @@ const activities = [
           ))}
         </div>
         <div class="shop-note">
-          <p>ほかの出版物・販売状況は、各ショップでご覧いただけます。</p>
+          <p>各書籍の販売状況は、各ショップでご覧いただけます。</p>
           <div>
             <a class="text-link" href="https://techbookfest.org/organization/7ZKV9gyQ1aSZn92Jb8XA5K" target="_blank" rel="noopener noreferrer">技術書典 <span aria-hidden="true">↗</span></a>
             <a class="text-link" href="https://homecloud-lab.booth.pm/" target="_blank" rel="noopener noreferrer">BOOTH <span aria-hidden="true">↗</span></a>
@@ -175,8 +177,9 @@ const activities = [
   .section-heading p { font-size: .9rem; color: var(--muted); }
   .book-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
   .book { min-width: 0; display: flex; flex-direction: column; }
-  .book-cover-link { height: 341px; flex-shrink: 0; display: flex; justify-content: center; align-items: end; padding: 0 18px 24px; border-bottom: 5px solid #c6d7e1; }
-  .book-cover { width: 100%; max-width: 280px; height: auto; max-height: 312px; object-fit: contain; box-shadow: 4px 6px 0 #153d5812, 8px 12px 20px #153d5818; transition: transform .2s ease; }
+  .book-cover-link { flex-shrink: 0; display: flex; justify-content: center; align-items: end; padding: 0 18px 24px; border-bottom: 5px solid #c6d7e1; }
+  .book-cover-frame { display: block; width: min(100%, 220px); aspect-ratio: 1056 / 1500; }
+  .book-cover { display: block; width: 100%; height: 100%; object-fit: contain; object-position: bottom; filter: drop-shadow(4px 6px 0 #153d5812) drop-shadow(8px 12px 10px #153d5818); transition: transform .2s ease; }
   .book-cover-link:hover .book-cover { transform: translateY(-6px); }
   .book-content { padding-top: 24px; display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
   .book-topics { font-size: .72rem; color: var(--muted); margin-bottom: 10px; }
@@ -212,8 +215,8 @@ const activities = [
     .hero-about { max-width: 560px; }
     .desktop-break { display: none; }
     .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; }
-    .book-cover { max-height: 398px; }
-    .book-cover-link { height: 427px; padding-inline: 6px; }
+    .book-cover-frame { width: min(100%, 280px); }
+    .book-cover-link { padding-inline: 6px; }
     .book h3 { font-size: 1.05rem; }
     .about, .activities { gap: 32px; }
     .about-heading { flex-direction: column; align-items: flex-start; }
@@ -228,8 +231,8 @@ const activities = [
     .section-heading p { margin-top: 10px; }
     .book-grid { grid-template-columns: 1fr; gap: 42px; }
     .book { max-width: 380px; margin-inline: auto; width: 100%; }
-    .book-cover { max-width: 260px; max-height: 369px; }
-    .book-cover-link { height: 398px; padding-bottom: 22px; }
+    .book-cover-frame { width: min(100%, 260px); }
+    .book-cover-link { padding-bottom: 22px; }
     .book-content { padding-top: 20px; }
     .book h3 { font-size: 1.2rem; }
     .shop-note { align-items: flex-start; }
