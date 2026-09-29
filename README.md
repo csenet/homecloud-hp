@@ -59,6 +59,9 @@ pnpm preview
 書籍情報は `src/data/books.ts` で管理します。書籍ページは静的生成され、サイトマップにも自動で追加されます。
 公開URLは `astro.config.mjs` の `site` で指定します。ドメイン変更時は `public/robots.txt` のサイトマップURLも更新してください。
 
+`/llms.txt` は書籍データからMarkdownとして静的生成します。AIエージェントやAPIを提供していないため、ARDの `ai-catalog.json` は公開していません。
+`src/pages/404.astro` が出力する `/404.html` は、Cloudflare Pagesで未存在URLを正しく404にするために必要です。これを削除するとトップページへのSPAフォールバックが有効になり、Lighthouseが未存在のカタログを不正なJSONとして検出します。
+
 faviconは `public/favicon.svg` が原本です。変更後に `npm run icons` を実行すると、ICO（16/32/48px）とApple Touch Iconを再生成できます。
 
 公開後はGoogle Search Consoleでサイトマップを送信し、URL検査でクロール状況を確認してください。構造化データの追加自体は検索順位やリッチリザルト表示を保証するものではありません。

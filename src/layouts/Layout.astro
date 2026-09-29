@@ -8,6 +8,7 @@ interface Props {
   ogImageWidth?: number;
   ogImageHeight?: number;
   mainEntityId?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -18,7 +19,8 @@ const {
   ogImageAlt = 'おうちクラウド研究部のロゴ',
   ogImageWidth = 1497,
   ogImageHeight = 1500,
-  mainEntityId
+  mainEntityId,
+  noindex = false
 } = Astro.props;
 
 const siteUrl = Astro.site!;
@@ -39,6 +41,7 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <meta name="theme-color" content="#173f59" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="describedby" href="/llms.txt" type="text/plain" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={ogType} />
@@ -63,7 +66,7 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 
     <!-- Additional SEO -->
     <meta name="author" content="おうちクラウド研究部" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
 
     <title>{fullTitle}</title>
 
