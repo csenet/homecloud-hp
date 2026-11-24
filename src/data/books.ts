@@ -2,8 +2,23 @@ import proxmoxCover from '../assets/books/proxmox-kubernetes.png';
 import practiceCover from '../assets/books/kubernetes-practice.png';
 import swarmCover from '../assets/books/docker-swarm.png';
 import checkoutCover from '../assets/books/serverless-checkout.png';
+import talosCover from '../assets/books/talos-omni-kubernetes.png';
 
 export const books = [
+  {
+    slug: 'talos-omni-kubernetes',
+    chapters: [
+      'Talos Linuxの基礎とMachine Config',
+      'talosctlによるノードの調査',
+      'セルフホスト版Omniでのクラスター構築と設定管理',
+      'ローリングアップデートとProxmox上でのワーカー増設',
+      'TerraformによるOmniの管理'
+    ],
+    title: 'Talos LinuxとOmniで始めるおうちKubernetes運用',
+    cover: talosCover,
+    description: 'Kubernetes専用OSのTalos Linuxと管理プラットフォームのOmniを使い、Proxmox上のおうちKubernetesを宣言的に構築・運用する実践書です。',
+    tags: ['Kubernetes', 'Talos Linux', 'Omni', 'Proxmox', 'Terraform']
+  },
   {
     slug: 'proxmox-kubernetes',
     chapters: ['Kubernetesの基礎とハードウェア選び', 'ネットワークの構築とProxmoxの導入', 'Kubernetesクラスターの構築とアプリケーションのデプロイ', 'TailscaleによるアクセスとIaC・CDの活用'],

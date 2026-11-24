@@ -74,7 +74,7 @@ const activities = [
                 <p class="book-description">{book.description}</p>
                 <div class="book-links">
                   <a class="book-detail-link" href={`/books/${book.slug}/`} aria-label={`内容を見る：${book.title}`}>内容を見る</a>
-                  <a class="book-link" aria-label={`技術書典で見る：${book.title}（別タブ）`} href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>
+                  {book.shopUrl && <a class="book-link" aria-label={`技術書典で見る：${book.title}（別タブ）`} href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>}
                   {book.boothUrl && (
                     <a class="book-link" aria-label={`BOOTHで見る：${book.title}（別タブ）`} href={book.boothUrl} target="_blank" rel="noopener noreferrer">BOOTHで見る <span aria-hidden="true">↗</span></a>
                   )}

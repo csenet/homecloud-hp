@@ -10,6 +10,7 @@ export function getStaticPaths() {
 }
 
 const { book } = Astro.props;
+const purchaseUrls = [book.shopUrl, book.boothUrl].filter(Boolean);
 const bookURL = new URL(`/books/${book.slug}/`, Astro.site).href;
 const description = `${book.title}。${book.description} 著者VOID、おうちクラウド研究部。内容紹介と購入先をご案内します。`;
 const structuredData = {
@@ -25,7 +26,7 @@ const structuredData = {
       inLanguage: 'ja',
       author: { '@type': 'Person', name: 'VOID' },
       publisher: { '@id': new URL('/#organization', Astro.site).href },
-      sameAs: [book.shopUrl, ...(book.boothUrl ? [book.boothUrl] : [])],
+      ...(purchaseUrls.length > 0 && { sameAs: purchaseUrls }),
     },
     {
       '@type': 'BreadcrumbList',
@@ -60,14 +61,16 @@ const structuredData = {
           <h2 id="contents-heading">この本で扱うこと</h2>
           <ul>{book.chapters.map(chapter => <li>{chapter}</li>)}</ul>
         </section>
-        <section class="purchase" aria-labelledby="purchase-heading">
-          <h2 id="purchase-heading">購入先</h2>
-          <p>価格・販売形式・在庫は各販売ページでご確認ください。</p>
-          <div class="purchase-links">
-            <a href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>
-            {book.boothUrl && <a href={book.boothUrl} target="_blank" rel="noopener noreferrer">BOOTHで見る <span aria-hidden="true">↗</span></a>}
-          </div>
-        </section>
+        {purchaseUrls.length > 0 && (
+          <section class="purchase" aria-labelledby="purchase-heading">
+            <h2 id="purchase-heading">購入先</h2>
+            <p>価格・販売形式・在庫は各販売ページでご確認ください。</p>
+            <div class="purchase-links">
+              {book.shopUrl && <a href={book.shopUrl} target="_blank" rel="noopener noreferrer">技術書典で見る <span aria-hidden="true">↗</span></a>}
+              {book.boothUrl && <a href={book.boothUrl} target="_blank" rel="noopener noreferrer">BOOTHで見る <span aria-hidden="true">↗</span></a>}
+            </div>
+          </section>
+        )}
       </div>
     </article>
     <section class="other-books" aria-labelledby="other-books-heading">
