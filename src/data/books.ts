@@ -17,6 +17,7 @@ export const books = [
     title: 'Talos LinuxとOmniで始めるおうちKubernetes運用',
     cover: talosCover,
     description: 'Kubernetes専用OSのTalos Linuxと管理プラットフォームのOmniを使い、Proxmox上のおうちKubernetesを宣言的に構築・運用する実践書です。',
+    shopUrl: 'https://techbookfest.org/product/f2t6UjkMKjgPUYaFJf2e2k',
     tags: ['Kubernetes', 'Talos Linux', 'Omni', 'Proxmox', 'Terraform']
   },
   {
